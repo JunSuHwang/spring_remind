@@ -9,3 +9,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     properties.hibernate.hbm2ddl.auto: none
     showSql: true
+springdoc:
+  pathsToMatch: /v1/**
+  api-docs:
+    path: /docs
+  swagger-ui:
