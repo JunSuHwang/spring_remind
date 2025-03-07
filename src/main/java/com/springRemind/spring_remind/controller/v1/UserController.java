@@ -1,5 +1,6 @@
 package com.springRemind.spring_remind.controller.v1;
 
+import com.springRemind.spring_remind.advice.exception.CUserNotFoundException;
 import com.springRemind.spring_remind.entity.User;
 import com.springRemind.spring_remind.model.response.CommonResult;
 import com.springRemind.spring_remind.model.response.ListResult;
@@ -26,12 +27,12 @@ public class UserController {
         return responseService.getListResult(userJpaRepo.findAll());
     }
 
-    @Operation(summary = "회원 단건 조회", description = "userId로 회원을 조회한다.")
+    @Operation(summary = "회원 단건 조회", description = "회원번호로 회원을 조회한다.")
     @GetMapping(value = "/user/{msrl}")
-    public SingleResult<User> findAllUser(
+    public SingleResult<User> findUserByID(
             @Parameter(name = "msrl", description = "회원번호",required = true) @PathVariable("msrl") long msrl
     ) {
-        return responseService.getSingleResult(userJpaRepo.findById(msrl).orElse(null));
+        return responseService.getSingleResult(userJpaRepo.findById(msrl).orElseThrow(CUserNotFoundException::new));
     }
 
     @Operation(summary = "회원 입력", description = "회원을 입력한다.")
