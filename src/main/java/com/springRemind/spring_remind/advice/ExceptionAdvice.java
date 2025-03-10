@@ -1,5 +1,6 @@
 package com.springRemind.spring_remind.advice;
 
+import com.springRemind.spring_remind.advice.exception.CEmailSigninFailedException;
 import com.springRemind.spring_remind.advice.exception.CUserNotFoundException;
 import com.springRemind.spring_remind.model.response.CommonResult;
 import com.springRemind.spring_remind.service.ResponseService;
@@ -31,6 +32,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected CommonResult userNotFoundException(HttpServletResponse request, Exception e) {
         return responseService.getFailResult(Integer.parseInt(getMessage("userNotFound.code")), getMessage("userNotFound.msg"));
+    }
+
+    @ExceptionHandler(CEmailSigninFailedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult emailSigninFailed(HttpServletResponse request, Exception e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("emailSigninFailed.code")), getMessage("emailSigninFailed.msg"));
     }
 
     private String getMessage(String code) {

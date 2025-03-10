@@ -12,6 +12,8 @@ spring:
   messages:
     basename: i18n/exception
     encoding: UTF-8
+  jwt:
+    secret: dalgnsk
 springdoc:
   pathsToMatch: /v1/**
   api-docs:
