@@ -20,21 +20,19 @@ import java.util.*;
 @Component
 public class JwtTokenProvider {
 
-    @Value("spring.jwt.secret")
+    @Value("${spring.jwt.secret}")
     private String secretKey;
     private long tokenValidMilisecond = 1000L * 60 * 60;
     private final UserDetailsService userDetailsService;
 
     public SecretKey getKey()
     {
-        String base64Encoded = Base64.getEncoder().encodeToString(secretKey.getBytes());
-        return Keys.hmacShaKeyFor(base64Encoded.getBytes());
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     public String createToken(String userPk, List<String> roles) {
         Map<String, List<String>> claims = new HashMap<>();
         claims.put("roles", roles);
-        System.out.println("roles");
         Date now = new Date();
         return Jwts.builder()
                 .subject(userPk)
@@ -51,7 +49,7 @@ public class JwtTokenProvider {
     }
 
     public String getUserPk(String token) {
-        return Jwts.parser().decryptWith(getKey()).build()
+        return Jwts.parser().verifyWith(getKey()).build()
                 .parseSignedClaims(token).getPayload().getSubject();
     }
 
@@ -61,7 +59,7 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String jwtToken) {
         try {
-             Jws<Claims> claims = Jwts.parser().decryptWith(getKey()).build()
+             Jws<Claims> claims = Jwts.parser().verifyWith(getKey()).build()
                     .parseSignedClaims(jwtToken);
              return !claims.getPayload().getExpiration().before(new Date());
         } catch(Exception e) {

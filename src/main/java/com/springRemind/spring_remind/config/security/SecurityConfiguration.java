@@ -40,4 +40,5 @@ public class SecurityConfiguration {
         return web -> web.ignoring().requestMatchers("/h2-console/**", "/swagger-ui/**",
                 "/swagger-resources/**", "/docs/**");
     }
+
 }
