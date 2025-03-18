@@ -28,9 +28,13 @@ public class SecurityConfiguration {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/*/signin","/*/signin/**", "/*/signup", "/*/signup/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/helloworld/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/exception/**", "/helloworld/**").permitAll()
+                        .requestMatchers("/*/users").hasRole("ADMIN")
                         .anyRequest().hasRole("USER")
                 )
+                .exceptionHandling(customizer -> customizer
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

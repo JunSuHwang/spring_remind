@@ -28,7 +28,7 @@ public class UserController {
     @Parameter(name = "X-AUTH-TOKEN", description = "로그인 성공 후 access_token", required = true,
             in = ParameterIn.HEADER, schema = @Schema(implementation = String.class))
     @Operation(summary = "회원 조회", description = "모든 회원을 조회한다.")
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/users")
     public ListResult<User> findAllUser() {
         return responseService.getListResult(userJpaRepo.findAll());
     }
