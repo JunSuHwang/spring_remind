@@ -38,7 +38,7 @@ public class SignController {
     }
 
     @Operation(summary = "가입", description = "회원가입을 한다.")
-    @GetMapping(value = "/signup")
+    @PostMapping(value = "/signup")
     public CommonResult signup(
             @Parameter(name = "id", description = "회원ID : 이메일",required = true) @RequestParam("id") String id,
             @Parameter(name = "password", description = "비밀번호",required = true) @RequestParam("password") String password,
