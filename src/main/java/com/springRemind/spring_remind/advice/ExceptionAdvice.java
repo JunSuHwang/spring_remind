@@ -1,9 +1,6 @@
 package com.springRemind.spring_remind.advice;
 
-import com.springRemind.spring_remind.advice.exception.AccessdeniedException;
-import com.springRemind.spring_remind.advice.exception.CAuthenticationEntryPointException;
-import com.springRemind.spring_remind.advice.exception.CEmailSigninFailedException;
-import com.springRemind.spring_remind.advice.exception.CUserNotFoundException;
+import com.springRemind.spring_remind.advice.exception.*;
 import com.springRemind.spring_remind.model.response.CommonResult;
 import com.springRemind.spring_remind.service.ResponseService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -50,6 +47,16 @@ public class ExceptionAdvice {
     @ExceptionHandler(AccessdeniedException.class)
     public CommonResult AccessDeniedException(HttpServletResponse request, Exception e) {
         return responseService.getFailResult(Integer.parseInt(getMessage("accessdenied.code")), getMessage("accessdenied.msg"));
+    }
+
+    @ExceptionHandler(CComunicationException.class)
+    public CommonResult communicationException(HttpServletResponse request, Exception e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("communicationError.code")), getMessage("communicationError.msg"));
+    }
+
+    @ExceptionHandler(CUserExistException.class)
+    public CommonResult userexistException(HttpServletResponse request, Exception e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("existingUser.code")), getMessage("existingUser.msg"));
     }
 
     private String getMessage(String code) {

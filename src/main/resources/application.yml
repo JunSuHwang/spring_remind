@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: key
   application:
   name: spring_remind
   datasource:
@@ -7,13 +9,16 @@ spring:
     username: sa
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    properties.hibernate.hbm2ddl.auto: update
+    properties.hibernate.hbm2ddl.auto: create
     showSql: true
   messages:
     basename: i18n/exception
     encoding: UTF-8
-  jwt:
-    secret: dalgnskdfkjhafkjhdfbgjadsfdflkjasdfnjkg
+  freemarker:
+    template-loader-path=classpath: /templates
+    suffix: .ftl
+  url:
+    base: http://localhost:8080
 springdoc:
   pathsToMatch: /v1/**
   api-docs:

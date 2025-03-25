@@ -2,11 +2,13 @@ package com.springRemind.spring_remind.controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 public class HelloController {
 
     @GetMapping(value = "/helloworld/string")
@@ -25,8 +27,12 @@ public class HelloController {
 
     // @Controller -> RestController 사용시 에러 해결
     @GetMapping(value = "/helloworld/page")
-    public String helloworld() {
-        return "helloworld";
+    public ModelAndView helloworld() {
+        String message = "freemarker의 메시지";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("helloworld");
+        modelAndView.addObject("message", message);
+        return modelAndView;
     }
 
     @Setter

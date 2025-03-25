@@ -1,1 +1,1 @@
-HelloWorld
+<h1>메세지: ${message} </h1>
