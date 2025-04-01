@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url:
+    driver-class-name:
+    username:
+  jpa:
+    database-platform:
+    properties.hibernate.hbm2ddl.auto:
+    showSql:
+  url:
+    base:
