@@ -1,0 +1,20 @@
+services:
+  db:
+    image: oscarfonts/h2:latest
+    restart: always
+    environment:
+      H2_OPTIONS: -ifNotExists
+    ports:
+      - "1521:1521"
+      - "8081:81"
+    volumes:
+      - /docker/volumes/h2:/opt/h2-data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app/
