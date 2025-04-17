@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:h2:tcp://proj-db-1:1521/test
+    url: jdbc:h2:tcp://localhost/~/test
     driver-class-name: org.h2.Driver
     username: sa
   jpa:
@@ -12,3 +12,5 @@ spring:
     showSql: true
   url:
     base: http://localhost:8080
+server:
+  shutdown: graceful

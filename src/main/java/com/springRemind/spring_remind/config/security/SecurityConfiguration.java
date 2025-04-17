@@ -28,7 +28,7 @@ public class SecurityConfiguration {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/*/signin","/*/signin/**", "/*/signup", "/*/signup/**", "/social/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/exception/**", "/helloworld/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/exception/**", "/helloworld/**", "/actuator/health").permitAll()
                         .requestMatchers("/*/users").hasRole("ADMIN")
                         .anyRequest().hasRole("USER")
                 )

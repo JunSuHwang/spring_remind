@@ -35,6 +35,13 @@ public class HelloController {
         return modelAndView;
     }
 
+    @GetMapping("/helloworld/long-process")
+    @ResponseBody
+    public String pause() throws InterruptedException {
+        Thread.sleep(10000);
+        return "Process finised";
+    }
+
     @Setter
     @Getter
     public static class Hello{

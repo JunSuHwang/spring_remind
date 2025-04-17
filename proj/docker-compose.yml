@@ -1,4 +1,12 @@
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
   db:
     image: oscarfonts/h2:latest
     restart: always
@@ -10,11 +18,13 @@ services:
     volumes:
       - /docker/volumes/h2:/opt/h2-data
 
-  web:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:h2:tcp://proj-db-1:1521/test"
     volumes:
       - ./:/app/
