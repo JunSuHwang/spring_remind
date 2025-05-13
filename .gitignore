@@ -187,4 +187,5 @@ application-key.yml
 .idea/modules/spring_remind.main.iml
 .idea/modules.xml
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,gradle,git
-/proj/nginx.conf
+/proj/nginx/*
+/proj/nginx/
