@@ -182,10 +182,13 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-# app social & jwt key
+# app secret & prod secret
 application-key.yml
+/src/main/resources/application-prod.yml
+
 .idea/modules/spring_remind.main.iml
 .idea/modules.xml
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,gradle,git
 /proj/nginx/*
 /proj/nginx/
+/proj/docker-compose-prod.yml

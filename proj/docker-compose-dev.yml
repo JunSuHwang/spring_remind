@@ -1,0 +1,24 @@
+services:
+  db:
+    image: oscarfonts/h2:latest
+    restart: always
+    environment:
+      H2_OPTIONS: -ifNotExists
+    ports:
+      - "1521:1521"
+      - "8081:81"
+    volumes:
+      - /docker/volumes/h2:/opt/h2-data
+
+  app:
+    build:
+      args:
+        SPRING_PROFILES_ACTIVE: dev
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+    container_name: app
+    environment:
+      SERVER_PORT: "8000"
+      SPRING_DATASOURCE_URL: "jdbc:h2:tcp://proj-db-1:1521/test"

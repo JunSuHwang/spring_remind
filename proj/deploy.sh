@@ -1,5 +1,6 @@
 #!/usr/bin/bash
-COMPOSE_PATH="/home/ec2-user/spring_remind/proj/docker-compose.yml"
+COMPOSE_COMMON_PATH="/home/ec2-user/spring_remind/proj/docker-compose.yml"
+COMPOSE_PROD_PATH="/home/ec2-user/spring_remind/proj/docker-compose-prod.yml"
 NGINX_AVAILABLE_DIR="/home/ec2-user/spring_remind/proj/nginx/conf-available"
 NGINX_CONF_DIR="/home/ec2-user/spring_remind/proj/nginx/conf.d"
 DELAY=5
@@ -24,22 +25,22 @@ fi
 
 echo "===================="
 echo "Building Dockerfile: $NEW_ENV"
-docker-compose -f "$COMPOSE_PATH" build $NEW_ENV
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH build $NEW_ENV
 echo "===================="
 
 echo "===================="
 echo "Pulling the new env image: $NEW_ENV"
-docker-compose -f "$COMPOSE_PATH" pull $NEW_ENV
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH pull $NEW_ENV
 echo "===================="
 
 echo "===================="
 echo "Building the new image: $NEW_ENV with no cache"
-docker-compose -f "$COMPOSE_PATH" build --no-cache $NEW_ENV
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH build --no-cache $NEW_ENV
 echo "===================="
 
 echo "===================="
 echo "Starting new env: $NEW_ENV"
-docker-compose -f "$COMPOSE_PATH" up -d --no-deps $NEW_ENV
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH up -d --no-deps $NEW_ENV
 echo "===================="
 
 sleep $DELAY
@@ -47,7 +48,7 @@ sleep $DELAY
 echo "===================="
 echo "Waiting for the new env to be healthy"
 for i in $(seq 1 $HEALTH_DELAY); do
-  HTTP_STATUS=$(docker-compose -f "$COMPOSE_PATH" exec -T $NEW_ENV curl -s -o /dev/null -w "%{http_code}" $HC_ENDPOINT)
+  HTTP_STATUS=$(docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH exec -T $NEW_ENV curl -s -o /dev/null -w "%{http_code}" $HC_ENDPOINT)
 
   echo "[$i/$HEALTH_DELAY] Health check HTTP status: $HTTP_STATUS"
 
@@ -69,18 +70,18 @@ if [[ "$HTTP_STATUS" -ne 200 ]]; then
 fi
 
 echo "===================="
-docker-compose -f "$COMPOSE_PATH" exec "$NGINX_CONTAINER" ln -sf "/etc/nginx/conf-available/$NEW_NGINX_CONF" "/etc/nginx/conf.d/active.conf"
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH exec "$NGINX_CONTAINER" ln -sf "/etc/nginx/conf-available/$NEW_NGINX_CONF" "/etc/nginx/conf.d/active.conf"
 echo "===================="
 
 echo "===================="
 echo "Reloading nginx.."
-docker-compose -f "$COMPOSE_PATH" exec "$NGINX_CONTAINER" nginx -s reload
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH exec "$NGINX_CONTAINER" nginx -s reload
 echo "===================="
 
 echo "===================="
 echo "Stopping and removing the old environment: $CURRENT_ENV"
-docker-compose -f "$COMPOSE_PATH" stop "$CURRENT_ENV"
-docker-compose -f "$COMPOSE_PATH" rm -f "$CURRENT_ENV"
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH stop "$CURRENT_ENV"
+docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH rm -f "$CURRENT_ENV"
 echo "===================="
 
 echo "배포 완료!"

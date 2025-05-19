@@ -35,6 +35,7 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
 	implementation("com.google.code.gson:gson")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.mariadb.jdbc:mariadb-java-client:3.5.3")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.h2database:h2")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
