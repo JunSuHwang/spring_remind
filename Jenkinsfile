@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    environtment{
+    environment{
         SCRIPT_PATH = '/var/jenkins_home/custom/spring_remind'
     }
     tools{
