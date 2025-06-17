@@ -1,0 +1,44 @@
+x-common-app: &app-common
+  build:
+    args:
+      SPRING_PROFILES_ACTIVE: prod
+    context: .
+    dockerfile: Dockerfile
+  volumes:
+    - ./:/app/
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - TZ="Asia/Seoul"
+      - ALLOW_EMPTY_PASSWORD=no
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - /docker/mariadb/etc/mysql/conf.d:/etc/mysql/conf.d:ro
+      - /docker/mariadb/var/lib/mysql:/var/lib/mysql
+      - /docker/mariadb/var/log/maria:/var/log/maria
+
+  app-blue:
+    expose:
+      - 8000
+    <<: *app-common
+    container_name: app-blue
+    environment:
+      SERVER_PORT: "8000"
+      SPRING_DATASOURCE_URL: "jdbc:mariadb://proj-db-1:3306/spring"
+
+  app-green:
+    expose:
+      - 8001
+    <<: *app-common
+    container_name: app-green
+    environment:
+      SERVER_PORT: "8001"
+      SPRING_DATASOURCE_URL: "jdbc:mariadb://proj-db-1:3306/spring"

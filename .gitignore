@@ -191,4 +191,4 @@ application-key.yml
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,gradle,git
 /proj/nginx/*
 /proj/nginx/
-/proj/docker-compose-prod.yml
+/proj/.env
