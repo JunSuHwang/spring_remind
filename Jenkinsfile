@@ -20,8 +20,8 @@ pipeline{
         stage('Replace Prod & Secret Properties'){
             steps{
                 withCredentials([
-                file(credentialsId: 'prod_yml', variable: 'prod_yml')
-                file(credentialsId: 'key_yml', variable: 'key_yml')
+                file(credentialsId: 'prod_yml', variable: 'prod_yml'),
+                file(credentialsId: 'key_yml', variable: 'key_yml'),
                 file(credentialsId: 'db_env', variable: 'db_env')
                 ]) {
                     script{
