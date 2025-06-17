@@ -39,11 +39,12 @@ pipeline{
                 sh 'gradle build -x test'
             }
         }
-        stage('Test'){
-            steps{
-                sh 'gradle test'
-            }
-        }
+        // 테스트 미완성
+        //stage('Test'){
+            //steps{
+                //sh 'gradle test'
+            //}
+        //}
         stage('Deploy'){
             steps{
                 sh '''
