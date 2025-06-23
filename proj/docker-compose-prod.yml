@@ -7,9 +7,14 @@ x-common-app: &app-common
   volumes:
     - ./:/app/
 
+networks:
+  backend-net:
+
 services:
   db:
     image: mariadb
+    networks:
+      - backend-net
     restart: always
     environment:
       - TZ="Asia/Seoul"
@@ -25,10 +30,30 @@ services:
       - /docker/mariadb/var/lib/mysql:/var/lib/mysql
       - /docker/mariadb/var/log/maria:/var/log/maria
 
+
+  jenkins:
+    image: jenkins-custom
+    networks:
+      - backend-net
+    container_name: jenkins-main
+    user: root
+    ports:
+      - 8888:8888
+      - 50000:50000
+    environment:
+      - JAVA_OPS=-Xmx1g
+      - JENKINS_OPTS=--httpPort=8888
+    restart: unless-stopped
+    volumes:
+      - /home/groot/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
   app-blue:
     expose:
       - 8000
     <<: *app-common
+    networks:
+      - backend-net
     container_name: app-blue
     environment:
       SERVER_PORT: "8000"
@@ -38,6 +63,8 @@ services:
     expose:
       - 8001
     <<: *app-common
+    networks:
+      - backend-net
     container_name: app-green
     environment:
       SERVER_PORT: "8001"

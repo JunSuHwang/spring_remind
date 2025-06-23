@@ -1,24 +1,14 @@
+networks:
+  backend-net:
+
 services:
   nginx:
     image: nginx:latest
+    networks:
+      - backend-net
     ports:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/conf-available:/etc/nginx/conf-available
-
-  jenkins:
-    image: jenkins-custom
-    container_name: jenkins-main
-    user: root
-    ports:
-      - 8888:8888
-      - 50000:50000
-    environment:
-      - JAVA_OPS=-Xmx1g
-      - JENKINS_OPTS=--httpPort=8888
-    restart: unless-stopped
-    volumes:
-      - /home/groot/jenkins:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
