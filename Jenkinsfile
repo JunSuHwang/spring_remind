@@ -28,7 +28,7 @@ pipeline{
                         sh '''
                             cp $prod_yml ./src/main/resources/application-prod.yml
                             cp $key_yml ./src/main/resources/application-key.yml
-                            cp $db_env ./src/main/resources/.env
+                            cp $db_env ./proj/.env
                         '''
                     }
                 }
