@@ -58,6 +58,7 @@ for i in $(seq 1 $HEALTH_DELAY); do
       break
     else
       echo "Waiting for service to be ready..."
+      docker-compose -f "$COMPOSE_COMMON_PATH" -f $COMPOSE_PROD_PATH logs app-green
       sleep 2
     fi
 done
