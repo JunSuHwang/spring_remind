@@ -1,6 +1,6 @@
 networks:
   backend-net:
-
+    external: true
 services:
   nginx:
     image: nginx:latest

@@ -9,6 +9,7 @@ x-common-app: &app-common
 
 networks:
   backend-net:
+    external: true
 
 services:
   db:
