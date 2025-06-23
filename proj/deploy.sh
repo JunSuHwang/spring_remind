@@ -1,8 +1,9 @@
-#!/usr/bin/bash
-COMPOSE_COMMON_PATH="/home/ec2-user/spring_remind/proj/docker-compose.yml"
-COMPOSE_PROD_PATH="/home/ec2-user/spring_remind/proj/docker-compose-prod.yml"
-NGINX_AVAILABLE_DIR="/home/ec2-user/spring_remind/proj/nginx/conf-available"
-NGINX_CONF_DIR="/home/ec2-user/spring_remind/proj/nginx/conf.d"
+#!/bin/bash
+cd /var/jenkins_home/custom/spring_remind/proj
+COMPOSE_COMMON_PATH="docker-compose.yml"
+COMPOSE_PROD_PATH="docker-compose-prod.yml"
+NGINX_AVAILABLE_DIR="conf-available"
+NGINX_CONF_DIR="./nginx/conf.d"
 DELAY=5
 NGINX_CONTAINER="nginx"
 HEALTH_DELAY=30
