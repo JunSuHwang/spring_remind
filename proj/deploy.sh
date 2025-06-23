@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /var/jenkins_home/custom/spring_remind/proj
+cd /var/jenkins_home/custom/spring_remind/
 COMPOSE_COMMON_PATH="docker-compose.yml"
 COMPOSE_PROD_PATH="docker-compose-prod.yml"
 NGINX_AVAILABLE_DIR="conf-available"
