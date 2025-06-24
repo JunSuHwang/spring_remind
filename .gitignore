@@ -185,10 +185,8 @@ gradle-app.setting
 # app secret & prod secret
 application-key.yml
 /src/main/resources/application-prod.yml
+/proj/.env
 
 .idea/modules/spring_remind.main.iml
 .idea/modules.xml
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,gradle,git
-/proj/nginx/*
-/proj/nginx/
-/proj/.env
