@@ -1,4 +1,15 @@
 services:
+  services:
+    nginx:
+      image: nginx:latest
+      container_name: nginx
+      ports:
+        - "80:80"
+      volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./nginx/conf.d:/etc/nginx/conf.d
+        - ./nginx/conf-available:/etc/nginx/conf-available
+
   db:
     image: oscarfonts/h2:latest
     restart: always

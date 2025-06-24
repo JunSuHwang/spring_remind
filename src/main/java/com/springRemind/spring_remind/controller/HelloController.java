@@ -14,7 +14,7 @@ public class HelloController {
     @GetMapping(value = "/helloworld/string")
     @ResponseBody
     public String helloworldString() {
-        return "helloworld and jenkins";
+        return "helloworld and jenkins 222";
     }
 
     @GetMapping(value = "/helloworld/json")

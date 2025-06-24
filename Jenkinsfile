@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        SCRIPT_PATH = '/var/jenkins_home/custom/spring_remind'
+        SCRIPT_PATH = '/srv/spring_remind'
     }
     tools{
         gradle 'gradle 8.12.1'
@@ -48,12 +48,13 @@ pipeline{
         stage('Deploy'){
             steps{
                 sh '''
-                    cp ./proj/docker-compose.yml ${SCRIPT_PATH}
-                    cp ./proj/docker-compose-prod.yml ${SCRIPT_PATH}
-                    cp ./proj/Dockerfile ${SCRIPT_PATH}
-                    cp ./proj/deploy.sh ${SCRIPT_PATH}
-                    cp ./proj/.env ${SCRIPT_PATH}
-                    cp ./build/libs/*.jar ${SCRIPT_PATH}
+                    cp -f ./proj/docker-compose.yml ${SCRIPT_PATH}
+                    cp -f ./proj/docker-compose-prod.yml ${SCRIPT_PATH}
+                    cp -f ./proj/Dockerfile ${SCRIPT_PATH}
+                    cp -f ./proj/deploy.sh ${SCRIPT_PATH}
+                    cp -f ./proj/.env ${SCRIPT_PATH}
+                    cp -rf ./proj/nginx ${SCRIPT_PATH}
+                    cp -f ./build/libs/*.jar ${SCRIPT_PATH}
                     chmod +x ${SCRIPT_PATH}/deploy.sh
                     ${SCRIPT_PATH}/deploy.sh
                 '''
