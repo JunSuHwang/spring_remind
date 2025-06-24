@@ -48,7 +48,6 @@ pipeline{
         stage('Deploy'){
             steps{
                 sh '''
-                    cp -f ./proj/docker-compose.yml ${SCRIPT_PATH}
                     cp -f ./proj/docker-compose-prod.yml ${SCRIPT_PATH}
                     cp -f ./proj/Dockerfile ${SCRIPT_PATH}
                     cp -f ./proj/deploy.sh ${SCRIPT_PATH}
