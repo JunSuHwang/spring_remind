@@ -1,6 +1,5 @@
 package com.springRemind.spring_remind.config.security;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,7 @@ public class SecurityConfiguration {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/*/signin","/*/signin/**", "/*/signup", "/*/signup/**", "/social/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/exception/**", "/helloworld/**", "/actuator/health").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v1/board/**", "/exception/**", "/helloworld/**", "/actuator/health").permitAll()
                         .requestMatchers("/*/users").hasRole("ADMIN")
                         .anyRequest().hasRole("USER")
                 )

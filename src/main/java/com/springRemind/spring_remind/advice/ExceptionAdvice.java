@@ -59,6 +59,18 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.parseInt(getMessage("existingUser.code")), getMessage("existingUser.msg"));
     }
 
+    @ExceptionHandler(CNotOwnerException.class)
+    @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
+    public CommonResult notOwnerException(HttpServletResponse request, Exception e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("notOwner.code")), getMessage("notOwner.msg"));
+    }
+
+    @ExceptionHandler(CResourceNotExistException.class)
+    @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
+    public CommonResult resourceNotExistException(HttpServletResponse request, Exception e) {
+        return responseService.getFailResult(Integer.parseInt(getMessage("resourceNotExist.code")), getMessage("resourceNotExist.msg"));
+    }
+
     private String getMessage(String code) {
         return getMessage(code, null);
     }

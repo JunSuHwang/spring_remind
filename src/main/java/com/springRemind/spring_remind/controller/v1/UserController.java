@@ -17,7 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "UserController", description = "1. User")
+@Tag(name = "사용자", description = "User")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1")

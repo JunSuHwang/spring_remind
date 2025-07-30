@@ -13,8 +13,6 @@ import com.springRemind.spring_remind.service.ResponseService;
 import com.springRemind.spring_remind.service.user.KakaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Optional;
 
-@Tag(name = "SignController", description = "1. User")
+@Tag(name = "로그인/회원가입", description = "Sign in/Sign up")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1")
