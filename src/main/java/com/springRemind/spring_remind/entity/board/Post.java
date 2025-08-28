@@ -1,15 +1,18 @@
 package com.springRemind.spring_remind.entity.board;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springRemind.spring_remind.entity.User;
 import com.springRemind.spring_remind.entity.common.CommonDateEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Getter
 @NoArgsConstructor
-public class Post extends CommonDateEntity {
+public class Post extends CommonDateEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
@@ -28,7 +31,8 @@ public class Post extends CommonDateEntity {
     @JoinColumn(name = "msrl")
     private User user;
 
-    protected Board getBoard() {
+    @JsonIgnore
+    public Board getBoard() {
         return board;
     }
 

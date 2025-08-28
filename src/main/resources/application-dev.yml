@@ -12,5 +12,8 @@ spring:
     showSql: true
   url:
     base: http://localhost:8080
+  redis:
+    host: redis
+    port: 6379
 server:
   shutdown: graceful
