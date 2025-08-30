@@ -65,6 +65,15 @@ services:
       - /srv/spring_remind:/srv/spring_remind
       - /var/run/docker.sock:/var/run/docker.sock
 
+  redis:
+    image: redis:7-alpine
+    networks:
+      - backend-net
+    container_name: redis
+    expose:
+      - "6379"
+    command: ["redis-server", "--appendonly", "yes"]
+
   app-blue:
     expose:
       - 8000
